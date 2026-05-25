@@ -7,35 +7,36 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout Source Code
       uses: actions/checkout@v4
 
-    - name: Set up Java JDK 11
+    - name: Set up Java JDK 17
       uses: actions/setup-java@v4
       with:
-        java-version: '11'
+        java-version: '17'
         distribution: 'temurin'
 
     - name: Set up NodeJS
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
 
     - name: Install Cordova
       run: npm install -g cordova
 
-    - name: Disable Plugin and Add Android Platform
-      run: |
-        cordova platform add android@10.1.2 --no-fetch || cordova platform add android@10.1.2
+    - name: Add Android Platform
+      run: cordova platform add android --skip-pkg-version-check || cordova platform add android
 
     - name: Build APK (Debug)
-      run: cordova build android --debug --device
+      run: cordova build android --debug
 
     - name: Upload Generated APK
       uses: actions/upload-artifact@v4
       with:
         name: Aradhana-Bhakti-APK
-        path: platforms/android/app/build/outputs/apk/debug/app-debug.apk
+        path: |
+          platforms/android/app/build/outputs/apk/debug/app-debug.apk
+          platforms/android/build/outputs/apk/debug/app-debug.apk
