@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Source Code
@@ -19,26 +19,20 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Set up Android SDK
-      uses: android-actions/setup-android@v3
-
     - name: Set up NodeJS
       uses: actions/setup-node@v4
       with:
-        node-version: '16'
+        node-version: '18'
 
-    - name: Install Cordova and Gradle
-      run: |
-        npm install -g cordova
-        sudo apt-get update && sudo apt-get install -y gradle
+    - name: Install Cordova
+      run: npm install -g cordova
 
-    - name: Remove Old Platform and Add Android 10
+    - name: Disable Plugin and Add Android Platform
       run: |
-        cordova platform remove android --silent || true
-        cordova platform add android@10.1.2
+        cordova platform add android@10.1.2 --no-fetch || cordova platform add android@10.1.2
 
     - name: Build APK (Debug)
-      run: cordova build android --debug
+      run: cordova build android --debug --device
 
     - name: Upload Generated APK
       uses: actions/upload-artifact@v4
