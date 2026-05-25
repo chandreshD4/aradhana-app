@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>आराधना - संपूर्ण भक्ति संग्रह</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(180deg, #fff8ef, #f6e8d5);
+            overflow-x: hidden;
+            padding-top: 155px; 
+            padding-bottom: 90px; 
+            color: #3e2723;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 14px 58px;
+            background: radial-gradient(circle at top, #b30018 0%, #6d000f 60%, #210002 100%);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 72%, 90% 82%, 60% 82%, 50% 100%, 40% 82%, 10% 82%, 0% 72%);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.45), inset 0 0 25px rgba(255,215,0,0.12);
+        }
+
+        .om-box {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.25);
+            border: 2px solid rgba(255,215,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .om-text {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ffd700;
+            animation: omGlow 3s infinite alternate;
+        }
+
+        @keyframes omGlow {
+            from { transform: scale(1); text-shadow: 0 0 10px #ffd700; }
+            to { transform: scale(1.08); text-shadow: 0 0 15px #ffd700, 0 0 30px #ff9800; }
+        }
+
+        .title-area {
+            flex: 1;
+            text-align: center;
+            padding: 0 8px;
+        }
+
+        .title-area h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(180deg, #fff, #ffe082, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .title-area p {
+            margin-top: 4px;
+            font-size: 0.75rem;
+            color: #fff4d2;
+            letter-spacing: 2px;
+        }
+
+        .showcase {
+            position: relative;
+            width: 78px;
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sudarshan {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: sudarshanRotate 5s linear infinite;
+        }
+
+        @keyframes sudarshanRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .deity-img {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            opacity: 0;
+            transition: 1s;
+            box-shadow: 0 0 10px rgba(255,255,255,0.7), 0 0 18px rgba(255,215,0,0.6);
+        }
+
+        .deity-img.active { opacity: 1; }
+
+        .clock {
+            margin-top: 10px;
+            padding: 4px 18px 10px;
+            text-align: right;
+            position: relative;
+            z-index: 999;
+        }
+
+        #time {
+            font-size: 19px;
+            font-weight: 800;
+            color: #b71c1c;
+            text-shadow: 0 0 8px rgba(255,152,0,0.25);
+        }
+
+        #date {
+            font-size: 12px;
+            font-weight: 700;
+            color: #ef6c00;
+        }
+
+        .search-container {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .search-container.show {
+            max-height: 80px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .slider-wrapper {
+            margin: 0 15px;
+            overflow: hidden;
+            border-radius: 22px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+        }
+
+        .slider {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        .slider::-webkit-scrollbar { display: none; }
+
+        .slide {
+            min-width: 100%;
+            padding: 28px 18px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .slide h2 { margin-bottom: 10px; }
+        .slide1 { background: linear-gradient(135deg, #ff9800, #ef6c00); }
+        .slide2 { background: linear-gradient(135deg, #8e24aa, #5e35b1); }
+        .slide3 { background: linear-gradient(135deg, #c62828, #ad1457); }
+
+        .categories {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 18px 15px;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar { display: none; }
+
+        .cat-btn {
+            border: none;
+            background: white;
+            padding: 11px 18px;
+            border-radius: 25px;
+            white-space: nowrap;
+            font-weight: 700;
+            cursor: pointer;
+            color: #7a0010;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            margin: 0 15px 15px;
+            padding-left: 10px;
+            border-left: 5px solid #ffd700;
+            color: #7a0010;
+            font-weight: 700;
+        }
+
+        .cards {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 16px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover { transform: translateY(-3px); }
+
+        .card img {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #fff3cd;
+            padding: 4px;
+        }
+
+        .card h3 { font-size: 1.08rem; margin-bottom: 5px; }
+        .card p { font-size: 0.9rem; color: #8d6e63; }
+
+        .premium-section { padding: 20px 15px; }
+
+        .premium-card {
+            background: linear-gradient(135deg, #7a0010, #b71c1c, #ff9800);
+            padding: 24px;
+            border-radius: 26px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .premium-card h2 { font-size: 1.6rem; margin-bottom: 12px; }
+        .premium-card p { line-height: 1.7; margin-bottom: 16px; }
+
+        .premium-status {
+            background: rgba(255,255,255,0.15);
+            padding: 12px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+
+        .premium-watch-btn, .premium-buy-btn {
+            width: 100%;
+            border: none;
+            padding: 14px;
+            border-radius: 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        .premium-watch-btn { background: white; color: #b71c1c; }
+        .premium-buy-btn { background: #ffd700; color: #5d0000; }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 65px;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #eee;
+            z-index: 99999;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+            color: #8d6e63;
+        }
+
+        .nav-btn.active { color: #7a0010; }
+        .nav-btn span { font-size: 1.3rem; }
+
+        .full-page-screen {
+            position: fixed;
+            inset: 0;
+            background: #fff8ef;
+            z-index: 2000000;
+            display: none; 
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .full-page-header {
+            background: linear-gradient(135deg, #b30018, #6d000f);
+            color: white;
+            padding: 18px 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .back-button-arrow {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.4rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .full-page-title { font-size: 1.3rem; font-weight: 700; }
+
+        .full-page-body-content {
+            padding: 24px 20px;
+            color: #3e2723;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 999999;
+        }
+
+        .modal-box {
+            background: white;
+            width: 100%;
+            max-width: 350px;
+            padding: 26px 20px;
+            border-radius: 24px;
+            text-align: center;
+        }
+
+        .modal-box h2 { color: #7a0010; margin-bottom: 12px; }
+        .modal-box p { line-height: 1.7; margin-bottom: 20px; }
+        .modal-box button {
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #7a0010, #b71c1c);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        @media(max-width:480px){
+            .title-area h1 { font-size: 2rem; }
+            .title-area p { font-size: 0.65rem; }
+            .showcase { width: 70px; height: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="om-box"><div class="om-text">ॐ</div></div>
+        <div class="title-area">
+            <h1>आराधना</h1>
+            <p>।। संपूर्ण भक्ति संग्रह ।।</p>
+        </div>
+        <div class="showcase">
+            <img src="Sudarshan.png" class="sudarshan" alt="Chakra">
+            <img src="shri_ram.png" class="deity-img active" alt="Ram">
+            <img src="Hanuman_Ji.png" class="deity-img" alt="Hanuman">
+            <img src="Sitaram.png" class="deity-img" alt="Sitaram">
+        </div>
+    </header>
+
+    <div class="clock">
+        <div id="time">00:00:00</div>
+        <div id="date">तारीख लोड हो रही है...</div>
+    </div>
+
+    <div class="search-container" id="searchContainer">
+        <input type="text" class="search-box" id="searchInput" placeholder="🔍 चालीसा, कांड, मंत्र खोजें...">
+    </div>
+
+    <div class="slider-wrapper">
+        <div class="slider" id="slider">
+            <div class="slide slide1">
+                <h2>।। जय श्री राम ।।</h2>
+                <p>राम नाम का स्मरण जीवन में परम शांति और आनंद देता है।</p>
+            </div>
+            <div class="slide slide2">
+                <h2>🚩 सुंदरकांड</h2>
+                <p>हनुमान जी की अतुलित बल, बुद्धि और भक्ति का पावन वर्णन।</p>
+            </div>
+            <div class="slide slide3">
+                <h2>📖 रामचरितमानस</h2>
+                <p>गोस्वामी तुलसीदास जी महाराज द्वारा रचित महाकाव्य।</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="categories">
+        <button class="cat-btn">🚩 चालीसा</button>
+        <button class="cat-btn">🪔 आरती</button>
+        <button class="cat-btn">📿 मंत्र</button>
+        <button class="cat-btn">📖 रामायण</button>
+        <button class="cat-btn">🙏 भक्ति</button>
+    </div>
+
+    <div class="section-title">🌺 मुख्य भक्ति संग्रह</div>
+    
+    <div class="cards" id="cards">
+        <div class="card">
+            <img src="shri_ram.png" alt="Tulsidas">
+            <div>
+                <h3>तुलसीदास परिचय</h3>
+                <p>गोस्वामी तुलसीदास जी का पावन एवं अद्भुत जीवन परिचय।</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Sitaram.png" alt="Balkand">
+            <div>
+                <h3>बाल कांड</h3>
+                <p>भगवान श्री राम के बाल्य काल एवं लीलाओं का अनुपम वर्णन।</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Hanuman_Ji.png" alt="Sundarkand">
+            <div>
+                <h3>सुندرकांड</h3>
+                <p>संकटमोचन श्री हनुमान जी की शक्ति, युक्ति और भक्ति का महासंग्रह।</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Hanuman_Ji.png" alt="Hanuman Chalisa">
+            <div>
+                <h3>श्री हनुमान चालीसा</h3>
+                <p>जय हनुमान ज्ञान गुन सागर, जय कपीस तिहुं लोक उजागर।</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="shri_ram.png" alt="Aarti">
+            <div>
+                <h3>आरती संग्रह</h3>
+                <p>प्रभु श्री रामचंद्र जी एवं वीर हनुमान जी की पावन आरतियां।</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Sitaram.png" alt="Mantra">
+            <div>
+                <h3>दिव्य महामंत्र</h3>
+                <p>भय और कष्टों का नाश करने वाले अचूक राम-हनुमान मंत्र।</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="premium-section">
+        <div class="premium-card">
+            <h2>👑 आराधना Premium</h2>
+            <p>
+                10 विज्ञापन देखें और 3 घंटे तक पूरा ऐप Ad-Free उपयोग करें।
+                <br><br>
+                ₹299 / Month में पूरा ऐप बिना विज्ञापन उपयोग करें।
+            </p>
+            <div class="premium-status" id="premiumStatus">⏳ अभी Free Mode चालू है</div>
+            <button class="premium-watch-btn" id="watchAdsBtn">📺 Watch Ads (0 / 10)</button>
+            <button class="premium-buy-btn" id="buyPremiumBtn">👑 Buy Premium ₹299 / Month</button>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <button class="nav-btn active" id="homeBtn"><span>🏠</span><small>होम</small></button>
+        <button class="nav-btn" id="searchBtn"><span>🔍</span><small>खोज</small></button>
+        <button class="nav-btn" id="favBtn"><span>❤️</span><small>भक्ति</small></button>
+        <button class="nav-btn" id="settingBtn"><span>⚙️</span><small>सेटिंग्स</small></button>
+    </div>
+
+    <div class="full-page-screen" id="fullPageScreen">
+        <div class="full-page-header">
+            <button class="back-button-arrow" onclick="closeFullPage()">🡨</button>
+            <div class="full-page-title" id="fullPageTitle">शीर्षक</div>
+        </div>
+        <div class="full-page-body-content" id="fullPageContent"></div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-box">
+            <h2 id="modalTitle">जय श्री राम</h2>
+            <p id="modalText">विवरण</p>
+            <button onclick="closeModal()">जय श्री सीताराम 🙏</button>
+        </div>
+    </div>
+
+    <script>
+        // आपकी असली जनरेट की हुई AdMob विज्ञापन IDs
+        const ADMOB_REWARDED_ID = 'ca-app-pub-7771069223571310/2038311874'; 
+        const ADMOB_INTERSTITIAL_ID = 'ca-app-pub-7771069223571310/9347928478'; 
+
+        // स्थानीय स्टोरेज से डेटा लोड करना
+        let watchedAds = parseInt(localStorage.getItem('aradhana_watched_ads')) || 0;
+        let premiumExpiry = localStorage.getItem('aradhana_premium_expiry') || null;
+        let monthlyPremium = localStorage.getItem('aradhana_monthly_premium') === 'true';
+
+        // घड़ी एवं तिथि सेटअप
+        function updateClock(){
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = String(now.getMinutes()).padStart(2, "0");
+            let seconds = String(now.getSeconds()).padStart(2, "0");
+            let ampm = hours >= 12 ? "PM" : "AM";
+            hours = hours % 12; hours = hours ? hours : 12;
+
+            const timeEl = document.getElementById("time");
+            const dateEl = document.getElementById("date");
+            if(timeEl) timeEl.innerText = `${String(hours).padStart(2, "0")}:${minutes}:${seconds} ${ampm}`;
+            if(dateEl) dateEl.innerText = now.toLocaleDateString("hi-IN", { day: "numeric", month: "long", year: "numeric" });
+            
+            checkPremiumStatus();
+        }
+        setInterval(updateClock, 1000);
+
+        // इमेज ऑटो रोटेशन
+        const deityImages = document.querySelectorAll(".deity-img");
+        let currentImage = 0;
+        setInterval(() => {
+            if(deityImages.length === 0) return;
+            deityImages[currentImage].classList.remove("active");
+            currentImage = (currentImage + 1) % deityImages.length;
+            deityImages[currentImage].classList.add("active");
+        }, 3000);
+
+        // सुविचार ऑटो स्लाइडर
+        const slider = document.getElementById("slider");
+        const slides = document.querySelectorAll(".slide");
+        let currentSlide = 0;
+        setInterval(() => {
+            if(!slider || slides.length === 0) return;
+            currentSlide = (currentSlide + 1) % slides.length;
+            slider.scrollTo({ left: slides[0].clientWidth * currentSlide, behavior: "smooth" });
+        }, 4000);
+
+        // सर्च बार लॉजिक
+        const searchBtn = document.getElementById("searchBtn");
+        const searchContainer = document.getElementById("searchContainer");
+        if(searchBtn && searchContainer) {
+            searchBtn.addEventListener("click", () => {
+                searchContainer.classList.toggle("show");
+                const srcInput = document.getElementById("searchInput");
+                if(srcInput) srcInput.focus();
+            });
+        }
+        const searchInput = document.getElementById("searchInput");
+        if(searchInput) {
+            searchInput.addEventListener("input", () => {
+                const value = searchInput.value.toLowerCase();
+                document.querySelectorAll(".card").forEach(card => {
+                    card.style.display = card.innerText.toLowerCase().includes(value) ? "flex" : "none";
+                });
+            });
+        }
+
+        // फुल स्क्रीन पेज मैनेजमेंट
+        const fullPageScreen = document.getElementById("fullPageScreen");
+        const fullPageTitle = document.getElementById("fullPageTitle");
+        const fullPageContent = document.getElementById("fullPageContent");
+
+        function openFullPageView(title, text) {
+            if(fullPageScreen && fullPageTitle && fullPageContent) {
+                fullPageTitle.innerText = title;
+                fullPageContent.innerHTML = `
+                    <div style="background: white; border-radius: 20px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #b30018;">
+                        <h2 style="color: #7a0010; font-size: 1.4rem; margin-bottom: 15px; text-align: center;">🚩 ${title} 🚩</h2>
+                        <p style="margin-bottom: 20px; font-weight: 500; text-align: center; color: #ef6c00;">${text}</p>
+                        <hr style="border: 0; border-top: 1px dashed #d7ccc8; margin-bottom: 20px;">
+                        <div style="font-size: 1.2rem; line-height: 2; text-align: center; color: #3e2723;">
+                            यहां पर इस पाठ की संपूर्ण पंक्तियां, दोहे और भक्ति गाथा लिखी जाएंगी।
+                        </div>
+                    </div>
+                `;
+                fullPageScreen.style.display = "flex";
+                document.body.style.overflow = "hidden";
+            }
+        }
+        function closeFullPage() {
+            if(fullPageScreen) { fullPageScreen.style.display = "none"; document.body.style.overflow = "auto"; }
+        }
+
+        const modal = document.getElementById("modal");
+        function openModal(title, text){
+            if(modal) { document.getElementById("modalTitle").innerText = title; document.getElementById("modalText").innerText = text; modal.style.display = "flex"; }
+        }
+        function closeModal(){ if(modal) modal.style.display = "none"; }
+
+        document.getElementById("cards").addEventListener("click", (e) => {
+            const card = e.target.closest(".card");
+            if(card) openFullPageView(card.querySelector("h3").innerText, card.querySelector("p").innerText);
+        });
+        document.querySelectorAll(".cat-btn").forEach(btn => {
+            btn.addEventListener("click", () => openFullPageView(btn.innerText, "विशेष भक्ति संग्रह जल्द ही यहां उपलब्ध होगा।"));
+        });
+        slides.forEach(slide => {
+            slide.addEventListener("click", () => openFullPageView(slide.querySelector("h2").innerText, slide.querySelector("p").innerText));
+        });
+
+        document.querySelectorAll(".nav-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+            });
+        });
+        document.getElementById("homeBtn").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        document.getElementById("favBtn").addEventListener("click", () => openFullPageView("🙏 विशेष भक्ति खंड", "भविष्य की चुनिंदा सामग्री के लिए।"));
+        document.getElementById("settingBtn").addEventListener("click", () => openFullPageView("⚙️ सेटिंग्स", "ऐप सेटिंग्स खंड निर्माणाधीन है।"));
+
+        /* =========================================================
+           ADMOB ENGINE LOGIC (जब Cordova प्लेटफॉर्म पर चलेगा)
+           ========================================================= */
+        
+        function checkPremiumStatus() {
+            const premiumStatus = document.getElementById("premiumStatus");
+            const watchAdsBtn = document.getElementById("watchAdsBtn");
+            
+            if (monthlyPremium) {
+                if(premiumStatus) premiumStatus.innerHTML = "👑 Monthly Premium Active (No Ads)";
+                if(watchAdsBtn) watchAdsBtn.style.display = "none";
+                return true;
+            }
+
+            if (premiumExpiry) {
+                const timeLeft = new Date(premiumExpiry) - new Date();
+                if (timeLeft > 0) {
+                    let min = Math.floor(timeLeft / 60000);
+                    let sec = Math.floor((timeLeft % 60000) / 1000);
+                    if(premiumStatus) premiumStatus.innerHTML = `✅ Premium चालू है (${min} मिनट ${sec} सेकंड शेष)`;
+                    if(watchAdsBtn) watchAdsBtn.innerText = "📺 3 घंटे का Premium एक्टिव है";
+                    return true;
+                } else {
+                    localStorage.removeItem('aradhana_premium_expiry');
+                    premiumExpiry = null;
+                    watchedAds = 0;
+                    localStorage.setItem('aradhana_watched_ads', 0);
+                    if(premiumStatus) premiumStatus.innerHTML = "⏳ Free Mode चालू है";
+                    if(watchAdsBtn) watchAdsBtn.innerText = "📺 Watch Ads (0 / 10)";
+                    openModal("⌛ Premium समाप्त", "3 घंटे का प्रीमियम समाप्त हो गया है। विज्ञापन देखना या प्रीमियम लेना अनिवार्य है।");
+                }
+            }
+            
+            if(watchAdsBtn) watchAdsBtn.innerText = `📺 Watch Ads (${watchedAds} / 10)`;
+            return false;
+        }
+
+        // असली रिवॉर्ड विज्ञापन ट्रिगर करना
+        function showRewardedVideoAd() {
+            if (typeof admob !== 'undefined') {
+                admob.rewarded.show({ id: ADMOB_REWARDED_ID })
+                    .catch(err => {
+                        // यदि तुरंत लोड न हो तो दोबारा लोड करने का प्रयास करें
+                        admob.rewarded.load({ id: ADMOB_REWARDED_ID })
+                            .then(() => admob.rewarded.show({ id: ADMOB_REWARDED_ID }))
+                            .catch(e => openModal("📢 अलर्ट", "विज्ञापन लोड हो रहा है, कृपया 5 सेकंड बाद फिर दबाएं।"));
+                    });
+            } else {
+                // TrebEdit/ब्राउज़र टेस्टिंग के लिए नकली काउंटर
+                handleAdRewardedSuccess();
+            }
+        }
+
+        // विज्ञापन पूरा देखने का इनाम मिलना
+        function handleAdRewardedSuccess() {
+            watchedAds++;
+            localStorage.setItem('aradhana_watched_ads', watchedAds);
+            document.getElementById("watchAdsBtn").innerText = `📺 Watch Ads (${watchedAds} / 10)`;
+
+            if (watchedAds >= 10) {
+                const expiryTime = new Date(new Date().getTime() + 3 * 60 * 60 * 1000).toISOString(); // 3 घंटे की वैलिडिटी
+                localStorage.setItem('aradhana_premium_expiry', expiryTime);
+                premiumExpiry = expiryTime;
+                checkPremiumStatus();
+                openModal("👑 Premium Activated", "जय श्री राम! आपने 10 विज्ञापन पूरे देखे। आपको 3 घंटे के लिए बिना विज्ञापन की ऐप मिलती है।");
+            } else {
+                openModal("📺 विज्ञापन सफल", `सफलतापूर्वक देखा गया। 3 घंटे के फ्री प्रीमियम के लिए अभी ${10 - watchedAds} और विज्ञापन देखना शेष है।`);
+            }
+        }
+
+        // हर 5 मिनट में पूरे स्क्रीन का विज्ञापन (Interstitial Ad) दिखाने का नियम
+        function showInterstitialAd() {
+            if (checkPremiumStatus()) return; // प्रीमियम होने पर रोक दें
+
+            if (typeof admob !== 'undefined') {
+                admob.interstitial.show({ id: ADMOB_INTERSTITIAL_ID })
+                    .catch(err => {
+                        // बैकग्राउंड में दोबारा लोड करके रखें
+                        admob.interstitial.load({ id: ADMOB_INTERSTITIAL_ID }).catch(e => console.log(e));
+                    });
+            } else {
+                openModal("📢 अंतराल विज्ञापन", "फ्री मोड एक्टिवेशन: यहाँ हर 5 मिनट में पूरे स्क्रीन का असली विज्ञापन पॉप-अप होगा।");
+            }
+        }
+
+        // CORDOVA ENGINE START (डिवाइस रेडी होने पर)
+        document.addEventListener('deviceready', () => {
+            if (typeof admob !== 'undefined') {
+                // विज्ञापन बंद होने पर रिवॉर्ड चेक करने का लिसनर
+                document.addEventListener('admob.rewarded.dismiss', (e) => {
+                    if (e.reward) { handleAdRewardedSuccess(); }
+                    admob.rewarded.load({ id: ADMOB_REWARDED_ID }).catch(err => console.log(err)); // अगला विज्ञापन पहले से लोड करें
+                });
+
+                document.addEventListener('admob.interstitial.dismiss', () => {
+                    admob.interstitial.load({ id: ADMOB_INTERSTITIAL_ID }).catch(err => console.log(err)); // अगला लोड करें
+                });
+
+                // शुरुआती प्रीलोडिंग इंजन
+                admob.rewarded.load({ id: ADMOB_REWARDED_ID }).catch(e => console.log(e));
+                admob.interstitial.load({ id: ADMOB_INTERSTITIAL_ID }).catch(e => console.log(e));
+            }
+        }, false);
+
+        // बटन क्लिक इवेंट्स
+        document.getElementById("watchAdsBtn").addEventListener("click", () => {
+            if (checkPremiumStatus()) {
+                openModal("👑 प्रीमियम सक्रिय है", "आप पहले से ही प्रीमियम मोड का आनंद ले रहे हैं।");
+                return;
+            }
+            showRewardedVideoAd();
+        });
+
+        // बाय बटन का डमी लॉजिक (चरण ४ में Razorpay गेटवे लिंक डालेंगे)
+        document.getElementById("buyPremiumBtn").addEventListener("click", () => {
+            monthlyPremium = true;
+            localStorage.setItem('aradhana_monthly_premium', 'true');
+            checkPremiumStatus();
+            openModal("👑 Premium Purchased", "₹299 का Monthly Premium सक्रिय हो चुका है। आपका धन्यवाद!");
+        });
+
+        // सटीक 5 मिनट (300000 मिलीसेकंड) पर इंटरस्टिशियल एड ट्रिगर इंजन
+        setInterval(showInterstitialAd, 300000);
+
+        // ऐप आरम्भ होने पर स्वागत सन्देश
+        setTimeout(() => { openModal("🙏 जय श्री सीताराम", "आराधना ऐप में आपका स्वागत है।"); }, 1000);
+    </script>
+</body>
+</html>ogleDrive()">Backup to Google Drive</li>
+                            <li onclick="restoreFromGoogleDrive()">Restore from Google Drive</li>
+                            <li onclick="toggleFullScreen('calculatorTool')">Full Screen</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="calculator-container">
+                        <div class="calculator-screen">
+                            <div id="calculation-history"></div>
+                            <div id="current-input">0</div>
+                        </div>
+                        <div class="calculator-buttons">
+                            <button onclick="clearDisplay()">AC</button>
+                            <button onclick="deleteLast()">DEL</button>
+                            <button onclick="appendValue('%')">%</button>
+                            <button class="operator" onclick="setOperator('÷')">÷</button>
+
+                            <button onclick="appendValue('7')">7</button>
+                            <button onclick="appendValue('8')">8</button>
+                            <button onclick="appendValue('9')">9</button>
+                            <button class="operator" onclick="setOperator('×')">×</button>
+
+                            <button onclick="appendValue('4')">4</button>
+                            <button onclick="appendValue('5')">5</button>
+                            <button onclick="appendValue('6')">6</button>
+                            <button class="operator" onclick="setOperator('-')">-</button>
+
+                            <button onclick="appendValue('1')">1</button>
+                            <button onclick="appendValue('2')">2</button>
+                            <button onclick="appendValue('3')">3</button>
+                            <button class="operator" onclick="setOperator('+')">+</button>
+
+                            <button onclick="appendValue('0')">0</button>
+                            <button onclick="appendValue('.')">.</button>
+                            <button class="equals-btn" onclick="calculateResult()">=</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box" id="passwordManagerTool">
+                <div class="box-header">
+                    <span class="back-arrow" onclick="goBack()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                    </span>
+                    <h2>Password Manager</h2>
+                    <div class="more-options">
+                        <span class="more-options-icon" onclick="toggleMoreOptions(event, 'password-menu')">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                        </span>
+                        <ul class="more-options-menu" id="password-menu">
+                             <li onclick="toggleFullScreen('passwordManagerTool')">Full Screen</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="password-search-container">
+                        <input type="text" id="passwordSearchInput" placeholder="Search passwords..." oninput="searchPasswords()">
+                    </div>
+                    <ul id="password-list"></ul>
+                </div>
+                <div id="addPasswordFab" onclick="showAddPasswordForm()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </div>
+                <div class="modal" id="addPasswordModal">
+                    <div class="modal-content">
+                        <h3 id="addPasswordTitle">Add New Password</h3>
+                        <form id="addPasswordForm">
+                            <input type="hidden" id="passwordId">
+                            <input type="text" id="website" placeholder="Website" required>
+                            <input type="text" id="username" placeholder="Username/Email" required>
+                            <input type="password" id="password" placeholder="Password" required>
+                            <div class="form-buttons">
+                                <button type="button" class="cancel-btn" onclick="hideAddPasswordForm()">Cancel</button>
+                                <button type="submit" class="save-btn">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box" id="historyBox">
+                <div class="box-header">
+                    <span class="back-arrow" onclick="goBack()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                    </span>
+                    <h2>History</h2>
+                    <div class="more-options">
+                        <span class="more-options-icon" onclick="toggleMoreOptions(event, 'history-menu')">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                        </span>
+                        <ul class="more-options-menu" id="history-menu">
+                            <li onclick="clearHistory()">Clear History</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <ul id="history-list" class="history-list"></ul>
+                </div>
+            </div>
+
+            <div class="box" id="profileBox">
+                <div class="box-header">
+                    <span class="back-arrow" onclick="goBack()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                    </span>
+                    <h2>Profile</h2>
+                </div>
+ 
+                <div class="box-content">
+                    <div class="profile-info">
+                        <div class="profile-photo-container">
+                            <img id="profile-photo-img" src="https://via.placeholder.com/100" alt="Profile Photo">
+                            <div class="profile-photo-upload-btn">
+                                <input type="file" id="profile-photo-input" accept="image/*" onchange="uploadProfilePhoto(event)" style="display: none;">
+                                <label for="profile-photo-input" style="cursor: pointer;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 5h-3.17L15 3H9L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 14H4V7h4.05l1.64-1.87L11.75 7H16v2h-2v-2h-3.5L10 8l-1.5 1.5H4v8zM12 11c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+                                </label>
+                            </div>
+                        </div>
+                        <h3 id="profile-name-display">User Name</h3>
+                        <p id="profile-email-display">user.email@example.com</p>
+                    </div>
+                    <form id="profile-form" class="profile-form">
+                        <div class="form-group">
+                            <label for="profile-name-input">Name</label>
+                            <input type="text" id="profile-name-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-email-input">Email</label>
+                            <input type="email" id="profile-email-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-password-input">Password</label>
+                            <input type="password" id="profile-password-input">
+                        </div>
+                        <button type="submit" id="save-profile-btn" disabled>Save Changes</button>
+                        <button type="button" class="delete-account-btn" onclick="showDeleteModal()">Delete Account</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="box" id="settingBox">
+                <div class="box-header">
+                    <span class="back-arrow" onclick="goBack()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                    </span>
+                    <h2>Settings</h2>
+                </div>
+                <div class="box-content">
+                    <div class="setting-option">
+                        <span>Dark Mode</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-dark-mode">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-option">
+                        <span>Language</span>
+                        <select>
+                            <option>English</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                        </select>
+                    </div>
+                    <button class="setting-btn" onclick="showLogoutModal()">Log Out</button>
+                    <button class="setting-btn" onclick="showDeleteModal()">Delete Account</button>
+                </div>
+            </div>
+
+            <div class="box" id="aboutBox">
+                <div class="box-header">
+                    <span class="back-arrow" onclick="goBack()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                    </span>
+                    <h2>About</h2>
+                </div>
+                <div class="box-content">
+                    <p>Vortyx is a personal productivity web application designed to help you manage your daily tasks, passwords, and calculations in a simple and intuitive interface. This app is designed with a mobile-first approach, ensuring a seamless experience across all your devices.</p>
+                </div>
+            </div>
+
+            <div class="modal" id="logoutModal">
+                <div class="modal-content">
+                    <h3>Confirm Logout</h3>
+                    <p>To confirm, please enter your username and password.</p>
+                    <input type="text" id="logout-username" placeholder="Username">
+                    <input type="password" id="logout-password" placeholder="Password">
+                    <div class="buttons">
+                        <button id="cancel-logout-btn">Cancel</button>
+                        <button id="confirm-logout-btn">Log Out</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="deleteModal">
+                <div class="modal-content">
+                    <h3>Confirm Account Deletion</h3>
+                    <p>Are you sure you want to delete your account? This action cannot be undone. Please enter your password to confirm.</p>
+                    <input type="password" id="delete-password" placeholder="Password">
+                    <div class="buttons">
+                        <button id="cancel-delete-btn">Cancel</button>
+                        <button id="confirm-delete-btn">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="bottom-nav" id="app-footer">
+            <div onclick="hideAllTools()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L2 12h3v9h6v-7h2v7h6v-9h3L12 2zm2 17h-4v-5h4v5z"/></svg>
+            </div>
+            <div onclick="showBox('toolsBox')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.4 12.98L20 12l-1.4-.98-.6-.82-.82-.6-.98-1.4-.6-.82-.82-.6-1.4-.98-1.4.98-1.4-.98-.6.82-.82.6-.98 1.4-.6.82-.82.6-1.4.98-1.4-.98-.6.82-.82.6-.98 1.4-1.4.98-1.4.98L2 12l1.4-.98 1.4-.98 1.4-.98.6.82.82.6.98 1.4.6.82.82.6 1.4.98 1.4-.98.6-.82.82-.6.98-1.4.6-.82.82-.6-1.4-.98-1.4.98L20 12l-1.4-.98zM12 16.5c2.48 0 4.5-2.02 4.5-4.5s-2.02-4.5-4.5-4.5-4.5 2.02-4.5 4.5 2.02 4.5 4.5 4.5z"/></svg>
+            </div>
+            <div onclick="showBox('settingBox')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.4 12.98L20 12l-1.4-.98-.6-.82-.82-.6-.98-1.4-.6-.82-.82-.6-1.4-.98-1.4.98-1.4-.98-.6.82-.82.6-.98 1.4-.6.82-.82.6-1.4.98-1.4-.98-.6.82-.82.6-.98 1.4-1.4.98-1.4.98L2 12l1.4-.98 1.4-.98 1.4-.98.6.82.82.6.98 1.4.6.82.82.6 1.4.98 1.4-.98.6-.82.82-.6.98-1.4.6-.82.82-.6-1.4-.98-1.4.98L20 12l-1.4-.98zM12 16.5c2.48 0 4.5-2.02 4.5-4.5s-2.02-4.5-4.5-4.5-4.5 2.02-4.5 4.5 2.02 4.5 4.5 4.5z"/></svg>
+            </div>
+            <div onclick="showBox('profileBox')">
+                <img id="bottom-nav-photo-img" class="bottom-nav-photo" src="https://via.placeholder.com/100" alt="Profile Photo">
+            </div>
+        </nav>
+    </div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://apis.google.com/js/api.js" async defer onload="this.onload=function(){};han
+dleClientLoad()"></script>
+<script>
+// ----------------------------------------------------
+        // ## JavaScript Functionality
+        // ----------------------------------------------------
+
+        // ✅ Google API & OAuth IDs (Removed for security)
+        const GOOGLE_CLIENT_ID = "";
+        const GOOGLE_API_KEY = "";
+        const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
+        const SCOPES = "https://www.googleapis.com/auth/drive.appdata";
+
+        // ✅ DOM Element Selection
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        const searchInput = document.getElementById("searchInput");
+        const searchResults = document.getElementById("searchResults");
+        const darkToggle = document.getElementById("toggle-dark-mode");
+        const appTitle = document.querySelector(".app-title");
+        const appHeader = document.getElementById("app-header");
+        const appFooter = document.getElementById("app-footer");
+        const searchContainer = document.getElementById("search-container");
+        const loginScreen = document.getElementById('loginScreen');
+        const mainWrapper = document.getElementById('main-wrapper');
+        const logoutModal = document.getElementById('logoutModal');
+        const deleteModal = document.getElementById('deleteModal');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const addPasswordModal = document.getElementById('addPasswordModal');
+        const addPasswordForm = document.getElementById('addPasswordForm');
+
+        // Calculator elements
+        const currentInput = document.getElementById("current-input");
+        const calculationHistory = document.getElementById("calculation-history");
+
+        // Profile elements
+        const profileNameDisplay = document.getElementById('profile-name-display');
+        const profileEmailDisplay = document.getElementById('profile-email-display');
+        const profileNameInput = document.getElementById('profile-name-input');
+        const profileEmailInput = document.getElementById('profile-email-input');
+        const profilePasswordInput = document.getElementById('profile-password-input');
+        const profilePhotoImg = document.getElementById('profile-photo-img');
+        const sidebarPhotoImg = document.getElementById('sidebar-photo-img');
+        const bottomNavPhotoImg = document.getElementById('bottom-nav-photo-img');
+        const sidebarUsername = document.getElementById('sidebar-username');
+        const logoutUsernameInput = document.getElementById('logout-username');
+        const logoutPasswordInput = document.getElementById('logout-password');
+        const deletePasswordInput = document.getElementById('delete-password');
+        const saveProfileBtn = document.getElementById('save-profile-btn');
+
+        // Password Manager elements
+        const passwordList = document.getElementById('password-list');
+        const passwordSearchInput = document.getElementById('passwordSearchInput');
+        const websiteInput = document.getElementById('website');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const passwordIdInput = document.getElementById('passwordId');
+        const addPasswordTitle = document.getElementById('addPasswordTitle');
+
+        // History stack for back button
+        let boxHistory = [];
+
+        // Full screen related elements
+        let isFullScreen = false;
+
+        // Google Auth object
+        let gapiLoaded = false;
+        let gisLoaded = false;
+        let gapiClient = null;
+
+        // ✅ Login/Registration Logic
+        function initializeApp() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData) {
+                loginScreen.classList.remove('visible');
+                showApp();
+                updateProfileInfo();
+            } else {
+                loginScreen.classList.add('visible');
+                appHeader.style.display = 'none';
+                mainWrapper.style.display = 'none';
+                appFooter.style.display = 'none';
+                document.body.classList.remove('show-app');
+            }
+            initializeTheme();
+        }
+
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('userEmail').value;
+            const password = document.getElementById('userPassword').value;
+
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData && userData.email === email && userData.password === password) {
+                showApp();
+                updateProfileInfo();
+            } else {
+                alert('Invalid email or password.');
+            }
+        });
+
+        registerBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+            const password = document.getElementById('userPassword').value;
+
+            if (!name || !email || !password) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            const existingUser = JSON.parse(localStorage.getItem('userData'));
+            if (existingUser) {
+                alert('This account already exists. Please log in.');
+            } else {
+                const userData = { name, email, password, photo: '' };
+                localStorage.setItem('userData', JSON.stringify(userData));
+                showApp();
+                updateProfileInfo();
+            }
+        });
+
+        // ✅ Google Login Integration
+        function initiateGoogleLogin() {
+            alert('Google Login is disabled for security. Please use the normal login form.');
+        }
+
+        // ✅ Password Visibility Toggle
+        function togglePasswordVisibility(id) {
+            const passwordInput = document.getElementById(id);
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+        }
+
+        function updateProfileInfo() {
+          const userData = JSON.parse(localStorage.getItem('userData'));
+          if (userData) {
+            profileNameDisplay.textContent = userData.name;
+            profileEmailDisplay.textContent = userData.email;
+            profileNameInput.value = userData.name;
+            profileEmailInput.value = userData.email;
+            profilePasswordInput.value = userData.password;
+            sidebarUsername.textContent = `Hi, ${userData.name}`;
+            if (userData.photo) {
+              profilePhotoImg.src = userData.photo;
+              sidebarPhotoImg.src = userData.photo;
+              bottomNavPhotoImg.src = userData.photo;
+            } else {
+              profilePhotoImg.src = "https://via.placeholder.com/100";
+              sidebarPhotoImg.src = "https://via.placeholder.com/100";
+              bottomNavPhotoImg.src = "https://via.placeholder.com/100";
+            }
+          }
+          checkProfileChanges();
+        }
+
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          let userData = JSON.parse(localStorage.getItem('userData'));
+          if (userData) {
+            userData.name = profileNameInput.value;
+            userData.email = profileEmailInput.value;
+            userData.password = profilePasswordInput.value;
+            localStorage.setItem('userData', JSON.stringify(userData));
+            alert('Profile updated successfully!');
+            updateProfileInfo();
+          }
+        });
+
+        // ✅ Profile Save Button Logic
+        function checkProfileChanges() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (!userData) return;
+            
+            const nameChanged = profileNameInput.value !== userData.name;
+            const emailChanged = profileEmailInput.value !== userData.email;
+            const passwordChanged = profilePasswordInput.value !== userData.password;
+            
+            if (nameChanged || emailChanged || passwordChanged) {
+                saveProfileBtn.disabled = false;
+                saveProfileBtn.classList.add('active');
+            } else {
+                saveProfileBtn.disabled = true;
+                saveProfileBtn.classList.remove('active');
+            }
+        }
+
+        profileNameInput.addEventListener('input', checkProfileChanges);
+        profileEmailInput.addEventListener('input', checkProfileChanges);
+        profilePasswordInput.addEventListener('input', checkProfileChanges);
+
+        function uploadProfilePhoto(event) {
+          const file = event.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              let userData = JSON.parse(localStorage.getItem('userData'));
+              if (userData) {
+                userData.photo = e.target.result;
+                localStorage.setItem('userData', JSON.stringify(userData));
+                updateProfileInfo();
+              }
+            };
+            reader.readAsDataURL(file);
+          }
+        }
+
+        function showApp() {
+            loginScreen.classList.remove('visible');
+            appHeader.classList.add('show-header');
+            mainWrapper.classList.add('visible');
+            appFooter.classList.add('visible');
+            document.body.classList.add('show-app');
+        }
+
+        function logout() {
+            localStorage.removeItem('userData');
+            localStorage.removeItem('calculatorHistory');
+            localStorage.removeItem('passwordManagerData');
+            window.location.reload();
+        }
+
+        function showLogoutModal() {
+            logoutModal.classList.add('show');
+            logoutUsernameInput.value = '';
+            logoutPasswordInput.value = '';
+        }
+
+        document.getElementById('cancel-logout-btn').addEventListener('click', () => {
+            logoutModal.classList.remove('show');
+        });
+
+        document.getElementById('confirm-logout-btn').addEventListener('click', () => {
+            const username = logoutUsernameInput.value;
+            const password = logoutPasswordInput.value;
+            const userData = JSON.parse(localStorage.getItem('userData'));
+
+            if (userData && username === userData.name && password === userData.password) {
+                logout();
+            } else {
+                alert('Invalid username or password.');
+            }
+        });
+
+        function showDeleteModal() {
+            deleteModal.classList.add('show');
+            deletePasswordInput.value = '';
+        }
+
+        document.getElementById('cancel-delete-btn').addEventListener('click', () => {
+            deleteModal.classList.remove('show');
+        });
+
+        document.getElementById('confirm-delete-btn').addEventListener('click', () => {
+            const password = deletePasswordInput.value;
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            
+            if (userData && password === userData.password) {
+                localStorage.removeItem('userData');
+                localStorage.removeItem('calculatorHistory');
+                localStorage.removeItem('passwordManagerData');
+                alert('Account deleted successfully.');
+                window.location.reload();
+            } else {
+                alert('Invalid password.');
+            }
+        });
+
+        // ✅ Sidebar Toggle
+        function toggleSidebar() {
+          sidebar.classList.toggle("open");
+          overlay.style.display = sidebar.classList.contains("open") ? "block" : "none";
+        }
+
+        function closeSidebar() {
+          sidebar.classList.remove("open");
+          overlay.style.display = "none";
+        }
+
+        // ✅ Box Handling with History Stack
+        function showBox(id) {
+            const currentBox = document.querySelector('.box.show');
+            if (currentBox && currentBox.id !== id) {
+                currentBox.classList.remove('show');
+            }
+            
+
+            if (boxHistory.length === 0 || boxHistory[boxHistory.length - 1] !== id) {
+                boxHistory.push(id);
+            }
+
+            document.getElementById(id).classList.add("show");
+            closeSidebar();
+        }
+
+        function goBack() {
+            if (boxHistory.length > 1) {
+                const currentBoxId = boxHistory.pop();
+                const prevBoxId = boxHistory[boxHistory.length - 1];
+                document.getElementById(currentBoxId).classList.remove('show');
+                document.getElementById(prevBoxId).classList.add('show');
+            } else {
+                hideAllTools();
+                boxHistory = [];
+            }
+        }
+
+        function showTool(id) {
+            hideAllTools();
+            document.getElementById(id).classList.add("show");
+            boxHistory.push(id);
+            closeSidebar();
+            if (id === 'passwordManagerTool') {
+                renderPasswords();
+            }
+        }
+
+        function hideAllTools() {
+            document.querySelectorAll(".box").forEach(box => {
+                box.classList.remove("show");
+            });
+            boxHistory = [];
+        }
+
+        // ✅ Dark Mode Toggle
+        function initializeTheme() {
+          if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark");
+            darkToggle.checked = true;
+          }
+        }
+
+        darkToggle.addEventListener("change", () => {
+          if (darkToggle.checked) {
+            document.body.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+          } else {
+            document.body.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+          }
+        });
+
+        // ✅ Data for Search
+        const items = [
+          { name: "Home", id: "home" },
+          { name: "Tools", id: "toolsBox" },
+          { name: "Calculator", id: "calculatorTool" },
+          { name: "Password Manager", id: "passwordManagerTool" },
+          { name: "Settings", id: "settingBox" },
+          { name: "Profile", id: "profileBox" },
+          { name: "About", id: "aboutBox" },
+          { name: "Log Out", id: "logout" },
+        ];
+
+        // ✅ Search Filter
+        function filterItems() {
+          const input = searchInput.value.toLowerCase();
+          searchResults.innerHTML = "";
+
+          if (input === "") {
+            searchResults.style.display = "none";
+            return;
+          }
+
+          const filtered = items.filter(item => item.name.toLowerCase().includes(input));
+
+          if (filtered.length === 0) {
+            const noResults = document.createElement("div");
+            noResults.textContent = "No results found";
+            searchResults.appendChild(noResults);
+          } else {
+            filtered.forEach(item => {
+              const div = document.createElement("div");
+              div.textContent = item.name;
+              div.onclick = () => {
+                  if (item.id === "calculatorTool" || item.id === "passwordManagerTool") {
+                      showTool(item.id);
+                  } else if (item.id === "logout") {
+                      showLogoutModal();
+                  } else {
+                      showBox(item.id);
+                  }
+                searchResults.style.display = "none";
+                searchInput.value = "";
+              };
+              searchResults.appendChild(div);
+            });
+          }
+          searchResults.style.display = "block";
+        }
+
+        function expandSearch() {
+            searchContainer.classList.add('expanded');
+        }
+
+        function shrinkSearch() {
+            if (searchInput.value === '') {
+                searchContainer.classList.remove('expanded');
+            }
+        }
+
+        // ✅ Full App Refresh
+        function refreshApp() {
+            location.reload();
+        }
+
+        // ✅ Touch Support (Finger Slide)
+        let touchStartX = 0;
+
+        document.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].clientX;
+        });
+
+        document.addEventListener("touchend", (e) => {
+          const touchEndX = e.changedTouches[0].clientX;
+          const diff = touchEndX - touchStartX;
+
+          if (e.target.closest('.box')) return;
+
+          if (touchStartX < 20 && diff > 50) {
+            toggleSidebar();
+          }
+
+          if (sidebar.classList.contains("open") && touchStartX > 50 && diff < -50) {
+            closeSidebar();
+          }
+        });
+
+        // ✅ Calculator Functions & History
+        let currentExpression = '';
+        let result = '';
+
+        function updateDisplay() {
+            currentInput.textContent = currentExpression || '0';
+            calculationHistory.textContent = result;
+        }
+
+        function appendValue(value) {
+            if (result !== '' && !isOperator(value)) {
+                currentExpression = '';
+                result = '';
+            }
+            currentExpression += value;
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            currentExpression = currentExpression.slice(0, -1);
+            updateDisplay();
+        }
+
+        function setOperator(newOperator) {
+            if (result !== '' && currentExpression === '') {
+                currentExpression = String(result);
+            }
+            
+            if (isOperator(currentExpression.slice(-1))) {
+                currentExpression = currentExpression.slice(0, -1);
+            }
+
+            currentExpression += newOperator;
+            updateDisplay();
+        }
+
+        function calculateResult() {
+            try {
+                let expressionToEval = currentExpression.replace(/×/g, '*').replace(/÷/g, '/');
+                
+                if (expressionToEval.includes('%')) {
+                    let parts = expressionToEval.split('%');
+                    let numberToPercent = eval(parts[0]);
+                    let percentageValue = numberToPercent / 100;
+                    result = percentageValue;
+                } else {
+                    result = eval(expressionToEval);
+                }
+                
+                saveHistory(currentExpression, result);
+
+                currentExpression = String(result);
+                updateDisplay();
+            } catch (error) {
+                result = 'Error';
+                updateDisplay();
+            }
+        }
+
+  
+        function isOperator(char) {
+            return ['+', '-', '×', '÷', '%'].includes(char);
+        }
+
+        function clearDisplay() {
+            currentExpression = '';
+            result = '';
+            updateDisplay();
+        }
+
+        function saveHistory(expression, result) {
+            const history = JSON.parse(localStorage.getItem('calculatorHistory')) || [];
+            history.push({ expression, result, timestamp: new Date().toLocaleString() });
+            localStorage.setItem('calculatorHistory', JSON.stringify(history));
+        }
+
+        function showHistory() {
+            const historyList = document.getElementById('history-list');
+            historyList.innerHTML = '';
+            const history = JSON.parse(localStorage.getItem('calculatorHistory')) || [];
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; color: #888;">No history yet.</p>';
+            } else {
+                history.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div>
+                            <span class="history-expression">${item.expression}</span>
+                            <span class="history-result">= ${item.result}</span>
+                        </div>
+                    `;
+                    li.onclick = () => {
+                        currentExpression = String(item.result);
+                        result = '';
+                        updateDisplay();
+                        goBack();
+                    };
+                    historyList.appendChild(li);
+                });
+            }
+            showBox('historyBox');
+        }
+
+        function clearHistory() {
+            localStorage.removeItem('calculatorHistory');
+            showHistory();
+        }
+        
+        // ✅ Password Manager Logic
+        function getPasswords() {
+            return JSON.parse(localStorage.getItem('passwordManagerData')) || [];
+        }
+
+        function savePasswords(passwords) {
+            localStorage.setItem('passwordManagerData', JSON.stringify(passwords));
+        }
+
+        function renderPasswords(filter = '') {
+            const passwords = getPasswords();
+            passwordList.innerHTML = '';
+
+            const filteredPasswords = passwords.filter(p => 
+                p.website.toLowerCase().includes(filter.toLowerCase()) || 
+                p.username.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            if (filteredPasswords.length === 0) {
+                passwordList.innerHTML = '<p style="text-align: center; color: #888;">No passwords found.</p>';
+                return;
+            }
+            
+            filteredPasswords.forEach(p => {
+                const li = document.createElement('li');
+                li.className = 'password-item';
+                li.innerHTML = `
+                    <div class="password-item-header">
+                        <h3>${p.website}</h3>
+                        <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                    </div>
+                    <div class="password-item-details">
+                        <div class="password-field">
+                            <span>Username:</span>
+                            <span>${p.username}</span>
+                        </div>
+                        <div class="password-field">
+                            <span>Password:</span>
+                            <input type="password" value="${p.password}" readonly>
+                            <svg class="toggle-password-icon" onclick="togglePasswordInput(event)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4.5c-6.16 0-11 4.71-11 11.5 0 2.29.98 4.38 2.58 6.02L1 23.58 2.41 25l6.59-6.59c1.64 1.15 3.59 1.83 5.67 1.83 6.16 0 11-4.71 11-11.5S18.16 4.5 12 4.5zm0 13c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5z"/></svg>
+                        </div>
+                        <div class="password-actions">
+                            <button class="edit-btn" onclick="editPassword('${p.id}')">Edit</button>
+                            <button class="delete-btn" onclick="deletePassword('${p.id}')">Delete</button>
+                        </div>
+                    </div>
+                `;
+                li.querySelector('.password-item-header').addEventListener('click', () => {
+                    const details = li.querySelector('.password-item-details');
+                    const arrow = li.querySelector('.dropdown-arrow');
+                    details.classList.toggle('show');
+                    arrow.style.transform = details.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0)';
+                });
+                passwordList.appendChild(li);
+            });
+        }
+        
+        function togglePasswordInput(event) {
+            event.stopPropagation();
+            const input = event.target.closest('.password-field').querySelector('input');
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+        }
+
+        function showAddPasswordForm(id = null) {
+            addPasswordModal.classList.add('show');
+            if (id) {
+                const passwords = getPasswords();
+                const password = passwords.find(p => p.id === id);
+                if (password) {
+                    addPasswordTitle.textContent = "Edit Password";
+                    passwordIdInput.value = password.id;
+                    websiteInput.value = password.website;
+                    usernameInput.value = password.username;
+                    passwordInput.value = password.password;
+                }
+            } else {
+                addPasswordTitle.textContent = "Add New Password";
+                passwordIdInput.value = '';
+                addPasswordForm.reset();
+            }
+        }
+
+        function hideAddPasswordForm() {
+            addPasswordModal.classList.remove('show');
+        }
+
+        addPasswordForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const website = websiteInput.value;
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+            const id = passwordIdInput.value;
+
+            if (id) {
+                let passwords = getPasswords();
+                const index = passwords.findIndex(p => p.id === id);
+                if (index !== -1) {
+                    passwords[index] = { id, website, username, password };
+                    savePasswords(passwords);
+                }
+            } else {
+                addPassword({ website, username, password });
+            }
+
+            hideAddPasswordForm();
+            renderPasswords();
+        });
+
+        function addPassword(entry) {
+            const passwords = getPasswords();
+            entry.id = Date.now().toString(); // Simple ID for demo
+            passwords.unshift(entry);
+            savePasswords(passwords);
+        }
+
+        function editPassword(id) {
+            showAddPasswordForm(id);
+        }
+
+        function deletePassword(id) {
+            if (confirm('Are you sure you want to delete this password?')) {
+                let passwords = getPasswords();
+                const updatedPasswords = passwords.filter(p => p.id !== id);
+                savePasswords(updatedPasswords);
+                renderPasswords();
+            }
+        }
+        
+        function searchPasswords() {
+            const filter = passwordSearchInput.value;
+            renderPasswords(filter);
+        }
+
+        // ✅ Google Drive Backup/Restore
+        // Functionality disabled for security reasons.
+        function handleClientLoad() {
+            console.warn("Google API client loading disabled for security.");
+        }
+
+        function startGoogleApi() {
+            console.warn("Google API client start disabled for security.");
+        }
+
+        function backupToGoogleDrive() {
+            alert('Google Drive backup is disabled for security. Do not store sensitive keys in client-side code.');
+        }
+
+        function restoreFromGoogleDrive() {
+             alert('Google Drive restore is disabled for security. Do not store sensitive keys in client-side code.');
+        }
+
+        // ✅ More Options Dropdown
+        function toggleMoreOptions(event, menuId) {
+            event.stopPropagation();
+            const menu = document.getElementById(menuId);
+            document.querySelectorAll('.more-options-menu').forEach(m => {
+                if (m.id !== menuId) {
+                    m.classList.remove('show');
+                }
+            });
+            menu.classList.toggle('show');
+        }
+
+        // ✅ Full Screen Logic
+        function toggleFullScreen(elementId) {
+            const elem = document.getElementById(elementId);
+            if (!document.fullscreenElement) {
+                elem.requestFullscreen().then(() => {
+                    isFullScreen = true;
+                    appHeader.classList.add('hide-header');
+                    appFooter.classList.add('hide-footer');
+                }).catch(err => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen().then(() => {
+                    isFullScreen = false;
+                    appHeader.classList.remove('hide-header');
+                    appFooter.classList.remove('hide-footer');
+                });
+            }
+        }
+
+        document.addEventListener('fullscreenchange', (event) => {
+            isFullScreen = !!document.fullscreenElement;
+            if (!isFullScreen) {
+                 appHeader.classList.remove('hide-header');
+                 appFooter.classList.remove('hide-footer');
+            }
+        });
+
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.more-options-menu').forEach(m => m.classList.remove('show'));
+        });
+
+        // ✅ Event Listeners
+        document.getElementById("setting").addEventListener("click", () => showBox('settingBox'));
+        document.getElementById("about").addEventListener("click", () => showBox('aboutBox'));
+        document.getElementById("calculator").addEventListener("click", () => showTool('calculatorTool'));
+        document.getElementById("password-manager-link").addEventListener("click", () => showTool('passwordManagerTool'));
+        document.getElementById("home").addEventListener("click", hideAllTools);
+        searchInput.addEventListener("input", filterItems);
+
+        // Bottom Bar functionality
+        document.querySelectorAll('.bottom-nav > div')[0].addEventListener('click', hideAllTools);
+        document.querySelectorAll('.bottom-nav > div')[1].addEventListener('click', () => showBox('toolsBox'));
+        document.querySelectorAll('.bottom-nav > div')[2].addEventListener('click', () => showBox('settingBox'));
+        document.querySelectorAll('.bottom-nav > div')[3].addEventListener('click', () => showBox('profileBox'));
+        
+        // Modal functions for the password manager form
+        window.showAddPasswordForm = showAddPasswordForm;
+        window.hideAddPasswordForm = hideAddPasswordForm;
+        window.deletePassword = deletePassword;
+        window.editPassword = editPassword;
+        window.searchPasswords = searchPasswords;
+        window.togglePasswordInput = togglePasswordInput;
+        
+        // Initialize app when the page is loaded
+        window.onload = function() {
+            initializeApp();
+            if (typeof gapi !== 'undefined' && typeof google !== 'undefined') {
+                handleClientLoad();
+            }
+        };
+
+        // Expose functions to the global scope for HTML onclick attributes
+        window.togglePasswordVisibility = togglePasswordVisibility;
+        window.initiateGoogleLogin = initiateGoogleLogin;
+        window.toggleSidebar = toggleSidebar;
+        window.closeSidebar = closeSidebar;
+        window.showBox = showBox;
+        window.goBack = goBack;
+        window.showTool = showTool;
+        window.hideAllTools = hideAllTools;
+        window.refreshApp = refreshApp;
+        window.filterItems = filterItems;
+        window.expandSearch = expandSearch;
+        window.shrinkSearch = shrinkSearch;
+        window.clearDisplay = clearDisplay;
+        window.setOperator = setOperator;
+        window.deleteLast = deleteLast;
+        window.appendValue = appendValue;
+        window.calculateResult = calculateResult;
+        window.showHistory = showHistory;
+        window.clearHistory = clearHistory;
+        window.backupToGoogleDrive = backupToGoogleDrive;
+        window.restoreFromGoogleDrive = restoreFromGoogleDrive;
+        window.toggleMoreOptions = toggleMoreOptions;
+        window.toggleFullScreen = toggleFullScreen;
+        window.showLogoutModal = showLogoutModal;
+        window.showDeleteModal = showDeleteModal;
+        window.uploadProfilePhoto = uploadProfilePhoto;
+</script>
+</body>
+</html>
